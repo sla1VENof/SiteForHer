@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Маленьке знайомство</title>
+  <style>
+    :root {
+      --text: #fff8f2;
+      --muted: rgba(255, 248, 242, 0.78);
+      --glass: rgba(255, 255, 255, 0.14);
+      --glass-strong: rgba(255, 255, 255, 0.21);
+      --line: rgba(255, 244, 220, 0.2);
+      --accent: #f5c978;
+      --accent-deep: #8d5b44;
+      --rose: #df8f9e;
+      --shadow: rgba(9, 12, 31, 0.5);
+      --safe-bottom: max(18px, env(safe-area-inset-bottom));
+      --theme-warm: rgba(244, 190, 112, 0.25);
+      --theme-cool: rgba(91, 111, 183, 0.22);
+      --theme-cozy: rgba(116, 75, 51, 0.24);
+      --theme-glow: rgba(255, 235, 184, 0.16);
+      --theme-base: linear-gradient(145deg, #101626 0%, #25203d 42%, #3d2b34 72%, #1c3340 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: #101626;
+    }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: "Segoe UI", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: 0;
+      background:
+        radial-gradient(circle at 16% 18%, var(--theme-warm), transparent 30rem),
+        radial-gradient(circle at 84% 16%, var(--theme-cool), transparent 28rem),
+        radial-gradient(circle at 72% 84%, var(--theme-cozy), transparent 30rem),
+        radial-gradient(circle at 50% 50%, var(--theme-glow), transparent 38rem),
+        var(--theme-base);
+      transition: background 800ms ease;
+    }
+
+    body.theme-1 {
+      --theme-warm: rgba(239, 183, 93, 0.24);
+      --theme-cool: rgba(74, 95, 164, 0.25);
+      --theme-cozy: rgba(119, 78, 51, 0.2);
+      --theme-glow: rgba(255, 237, 196, 0.12);
+      --theme-base: linear-gradient(145deg, #0f1728 0%, #20243f 48%, #342837 74%, #172f3a 100%);
+    }
+
+    body.theme-2 {
+      --theme-warm: rgba(245, 196, 115, 0.34);
+      --theme-cool: rgba(86, 92, 151, 0.18);
+      --theme-cozy: rgba(132, 86, 55, 0.32);
+      --theme-glow: rgba(255, 244, 211, 0.18);
+      --theme-base: linear-gradient(145deg, #121827 0%, #2b2540 42%, #563a31 78%, #21333c 100%);
+    }
+
+    body.theme-3 {
+      --theme-warm: rgba(251, 207, 122, 0.34);
+      --theme-cool: rgba(94, 117, 204, 0.3);
+      --theme-cozy: rgba(116, 71, 47, 0.22);
+      --theme-glow: rgba(255, 246, 209, 0.2);
+      --theme-base: linear-gradient(145deg, #101a2f 0%, #2a2447 36%, #49335b 68%, #1f3f46 100%);
+    }
+
+    body.theme-4 {
+      --theme-warm: rgba(247, 199, 130, 0.36);
+      --theme-cool: rgba(81, 106, 169, 0.2);
+      --theme-cozy: rgba(138, 88, 61, 0.28);
+      --theme-glow: rgba(255, 236, 193, 0.2);
+      --theme-base: linear-gradient(145deg, #111728 0%, #242845 42%, #493536 72%, #203c42 100%);
+    }
+
+    body.theme-5 {
+      --theme-warm: rgba(255, 213, 134, 0.42);
+      --theme-cool: rgba(94, 135, 184, 0.18);
+      --theme-cozy: rgba(161, 102, 60, 0.28);
+      --theme-glow: rgba(255, 247, 214, 0.34);
+      --theme-base: linear-gradient(145deg, #151a2a 0%, #2f2944 40%, #634434 70%, #284b49 100%);
+    }
+
+    body::before,
+    body::after {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      content: "";
+    }
+
+    body::before {
+      opacity: 0.78;
+      background-image:
+        radial-gradient(circle, rgba(255, 247, 224, 0.8) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255, 209, 138, 0.6) 0 1.2px, transparent 1.8px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.46) 0 0.8px, transparent 1.4px);
+      background-position: 0 0, 42px 64px, 90px 28px;
+      background-size: 118px 118px, 156px 156px, 210px 210px;
+      animation: starsDrift 18s linear infinite;
+    }
+
+    body::after {
+      background:
+        linear-gradient(to bottom, rgba(18, 8, 12, 0.2), rgba(18, 8, 12, 0.36)),
+        radial-gradient(circle at center, transparent 0 42%, rgba(25, 8, 13, 0.34) 100%);
+    }
+
+    .fireflies {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .firefly {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      left: var(--left);
+      top: var(--top);
+      border-radius: 999px;
+      opacity: 0;
+      background: rgba(255, 220, 143, 0.9);
+      box-shadow: 0 0 16px rgba(255, 211, 126, 0.9), 0 0 36px rgba(255, 177, 101, 0.34);
+      animation: floatFirefly var(--duration) ease-in-out var(--delay) infinite;
+    }
+
+    .side-cats {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .cat {
+      position: absolute;
+      display: grid;
+      width: 86px;
+      height: 86px;
+      place-items: center;
+      border: 1px solid rgba(255, 244, 220, 0.16);
+      border-radius: 8px;
+      font-size: 3rem;
+      opacity: 0.72;
+      background: rgba(255, 244, 220, 0.08);
+      box-shadow: 0 18px 46px rgba(9, 12, 31, 0.24);
+      backdrop-filter: blur(14px);
+      filter: drop-shadow(0 12px 22px rgba(10, 12, 30, 0.35));
+      transition: opacity 420ms ease, transform 520ms ease, background 420ms ease;
+      animation: catFloat 5.8s ease-in-out infinite;
+    }
+
+    .cat-left {
+      left: max(12px, calc((100vw - 1040px) / 2 - 118px));
+      top: 34%;
+      transform: translateX(-24px) rotate(-7deg);
+    }
+
+    .cat-right {
+      right: max(12px, calc((100vw - 1040px) / 2 - 118px));
+      top: 56%;
+      transform: translateX(24px) rotate(8deg);
+      animation-delay: -2.4s;
+    }
+
+    body.theme-2 .cat-right,
+    body.theme-4 .cat-right {
+      background: rgba(245, 201, 120, 0.13);
+      transform: translateX(14px) rotate(4deg);
+    }
+
+    body.theme-3 .cat {
+      opacity: 0.86;
+      background: rgba(255, 244, 220, 0.13);
+      animation-duration: 4.6s;
+    }
+
+    body.theme-5 .cat {
+      opacity: 0.92;
+      background: rgba(255, 232, 170, 0.16);
+      box-shadow: 0 18px 58px rgba(245, 201, 120, 0.2);
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      min-height: 100svh;
+      padding: 32px 18px calc(72px + var(--safe-bottom));
+      place-items: center;
+    }
+
+    .progress {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 4;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: min(420px, calc(100vw - 36px));
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 18px 46px rgba(35, 14, 21, 0.18);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+    }
+
+    .progress-text {
+      min-width: 40px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: rgba(255, 248, 242, 0.9);
+      text-align: center;
+    }
+
+    .progress-track {
+      position: relative;
+      flex: 1;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .progress-fill {
+      width: 20%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #f5c978, #d8b072, #78c7bd);
+      box-shadow: 0 0 16px rgba(245, 201, 120, 0.5);
+      transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .card-shell {
+      width: min(720px, 100%);
+      min-height: min(620px, calc(100svh - 150px));
+      padding: clamp(22px, 4vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 244, 220, 0.16), rgba(255, 255, 255, 0.07)),
+        rgba(10, 15, 34, 0.34);
+      box-shadow: 0 28px 90px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(24px);
+    }
+
+    .step {
+      display: none;
+      min-height: inherit;
+    }
+
+    .step.active {
+      display: grid;
+      align-content: center;
+      gap: 26px;
+      animation: stepIn 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      color: rgba(255, 248, 242, 0.86);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 5rem;
+      line-height: 0.96;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 3.65rem;
+      line-height: 1.04;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+
+    .copy {
+      display: grid;
+      gap: 16px;
+      max-width: 58ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.72;
+    }
+
+    .copy p {
+      margin: 0;
+    }
+
+    .question {
+      margin: 6px 0 0;
+      color: rgba(255, 248, 242, 0.96);
+      font-size: 1.44rem;
+      font-weight: 700;
+      line-height: 1.28;
+    }
+
+    .actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      min-height: 66px;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    .button {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      max-width: 100%;
+      padding: 0 20px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: normal;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 14px 32px rgba(38, 16, 20, 0.22);
+      backdrop-filter: blur(18px);
+      transition: transform 220ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      border-color: rgba(255, 255, 255, 0.42);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 18px 44px rgba(38, 16, 20, 0.3);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .button.primary {
+      color: #2a1718;
+      border-color: rgba(255, 230, 188, 0.62);
+      background: linear-gradient(135deg, #f8dfaa, #e5b76e 58%, #7fc9be);
+      box-shadow: 0 18px 50px rgba(197, 139, 70, 0.28);
+    }
+
+    .button.primary:hover,
+    .button.primary:focus-visible {
+      box-shadow: 0 24px 64px rgba(245, 201, 120, 0.34);
+      filter: saturate(1.07);
+    }
+
+    .button.ghost {
+      color: rgba(255, 248, 242, 0.88);
+    }
+
+    .button.escape {
+      z-index: 2;
+      transition: left 260ms ease, top 260ms ease, transform 220ms ease, background 220ms ease;
+    }
+
+    .button.floaty {
+      animation: buttonFloat 4.8s ease-in-out infinite;
+    }
+
+    .button.orbit {
+      animation: buttonOrbit 6.6s ease-in-out infinite;
+    }
+
+    .button.wiggle {
+      animation: buttonWiggle 5.8s ease-in-out infinite;
+    }
+
+    .button.is-floating,
+    .button:hover,
+    .button:focus-visible {
+      animation-play-state: paused;
+    }
+
+    .hint {
+      min-height: 1.3em;
+      margin: -8px 0 0;
+      color: rgba(255, 228, 189, 0.88);
+      font-size: 0.94rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 240ms ease, transform 240ms ease;
+    }
+
+    .hint.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .notice {
+      display: none;
+      gap: 18px;
+      max-width: 56ch;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: rgba(255, 248, 242, 0.88);
+      line-height: 1.62;
+      background: rgba(255, 255, 255, 0.12);
+      animation: stepIn 420ms ease both;
+    }
+
+    .notice.visible {
+      display: grid;
+    }
+
+    .notice p {
+      margin: 0;
+    }
+
+    .notice-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .mood-cat {
+      width: fit-content;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 244, 220, 0.18);
+      border-radius: 8px;
+      font-size: 2rem;
+      background: rgba(255, 244, 220, 0.1);
+      box-shadow: 0 16px 36px rgba(9, 12, 31, 0.18);
+      animation: catFloat 5.2s ease-in-out infinite;
+    }
+
+    .story-cat {
+      width: min(210px, 58vw);
+      max-height: 210px;
+      object-fit: contain;
+      justify-self: center;
+      border-radius: 24px;
+      filter: drop-shadow(0 18px 32px rgba(9, 12, 31, 0.34));
+      animation: catFloat 5.4s ease-in-out infinite;
+    }
+
+    .story-cat.small {
+      width: min(170px, 48vw);
+    }
+
+    .story-cat.wide {
+      width: min(280px, 72vw);
+    }
+
+    .story-cat.final-cat {
+      width: min(230px, 62vw);
+    }
+
+    .exit-line {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: -8px;
+    }
+
+    .exit-button {
+      min-height: 40px;
+      padding: 0 14px;
+      font-size: 0.86rem;
+      opacity: 0.78;
+    }
+
+    .exit-message {
+      display: none;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 248, 242, 0.88);
+      line-height: 1.55;
+    }
+
+    .exit-message.visible {
+      display: grid;
+    }
+
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .meme-card {
+      display: grid;
+      gap: 8px;
+      min-height: 126px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 38px rgba(38, 16, 20, 0.18);
+    }
+
+    .meme-card strong {
+      color: rgba(255, 228, 189, 0.96);
+      font-size: 0.92rem;
+    }
+
+    .meme-card span {
+      color: rgba(255, 248, 242, 0.84);
+      line-height: 1.5;
+    }
+
+    .gift-zone {
+      display: grid;
+      gap: 18px;
+      justify-items: start;
+    }
+
+    .gift-button {
+      position: relative;
+      display: block;
+      width: clamp(138px, 32vw, 190px);
+      height: clamp(138px, 32vw, 190px);
+      border: 0;
+      border-radius: 28px;
+      cursor: pointer;
+      background: transparent;
+      transform-style: preserve-3d;
+      transition: transform 280ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gift-2 {
+      width: clamp(112px, 25vw, 150px);
+      height: clamp(112px, 25vw, 150px);
+      margin-left: clamp(18px, 5vw, 64px);
+    }
+
+    .gift-3 {
+      width: clamp(92px, 21vw, 124px);
+      height: clamp(92px, 21vw, 124px);
+      margin-left: clamp(56px, 11vw, 128px);
+    }
+
+    .hidden-gift {
+      display: none;
+    }
+
+    .hidden-gift.revealed {
+      display: block;
+      animation: stepIn 480ms ease both;
+    }
+
+    .gift-hint {
+      min-height: 1.4em;
+      margin: -4px 0 0;
+      color: rgba(255, 228, 189, 0.9);
+      font-size: 0.96rem;
+      font-weight: 800;
+    }
+
+    .gift-button:hover,
+    .gift-button:focus-visible {
+      transform: translateY(-4px) rotate(-1deg);
+      outline: none;
+    }
+
+    .gift-box,
+    .gift-lid,
+    .gift-ribbon,
+    .gift-bow {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .gift-box {
+      bottom: 10%;
+      width: 78%;
+      height: 56%;
+      overflow: hidden;
+      border-radius: 18px 18px 24px 24px;
+      background: linear-gradient(135deg, #ff9f9b, #d95f5e 60%, #7ecbbb);
+      box-shadow: 0 24px 54px rgba(43, 17, 21, 0.34), inset 0 2px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .gift-box::before,
+    .gift-lid::before {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 18%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffe4a6, #ffc069);
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .gift-box::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+      content: "";
+      transform: translateX(-90%) skewX(-18deg);
+      animation: giftGleam 3s ease-in-out infinite;
+    }
+
+    .gift-lid {
+      bottom: 62%;
+      width: 86%;
+      height: 22%;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffd0a8, #e36b71 58%, #9ee0cc);
+      box-shadow: 0 16px 30px rgba(43, 17, 21, 0.26), inset 0 2px 0 rgba(255, 255, 255, 0.34);
+      transform-origin: 18% 100%;
+      transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gift-bow {
+      bottom: 77%;
+      width: 68%;
+      height: 28%;
+      transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gift-bow::before,
+    .gift-bow::after {
+      position: absolute;
+      top: 18%;
+      width: 46%;
+      height: 60%;
+      border: 9px solid #ffd782;
+      border-radius: 50% 50% 44% 56%;
+      content: "";
+      filter: drop-shadow(0 8px 16px rgba(43, 17, 21, 0.18));
+    }
+
+    .gift-bow::before {
+      left: 2%;
+      transform: rotate(22deg);
+    }
+
+    .gift-bow::after {
+      right: 2%;
+      transform: rotate(-22deg) scaleX(-1);
+    }
+
+    .gift-ribbon {
+      bottom: 72%;
+      width: 18%;
+      height: 18%;
+      border-radius: 50%;
+      background: #ffe09b;
+      box-shadow: 0 8px 18px rgba(43, 17, 21, 0.2);
+      transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gift-button.opened .gift-lid {
+      transform: translateX(-50%) translate(-18px, -30px) rotate(-18deg);
+    }
+
+    .gift-button.opened .gift-bow {
+      transform: translateX(-50%) translate(-28px, -34px) rotate(-18deg);
+    }
+
+    .gift-button.opened .gift-ribbon {
+      transform: translateX(-50%) translate(-22px, -28px) rotate(-18deg);
+    }
+
+    .spark {
+      position: absolute;
+      left: 50%;
+      top: 42%;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      opacity: 0;
+      background: #ffe8ac;
+      box-shadow: 0 0 16px #ffe8ac;
+    }
+
+    .gift-button.opened .spark {
+      animation: popSpark 760ms ease-out both;
+    }
+
+    .gift-button.opened .spark:nth-child(5) {
+      animation-delay: 80ms;
+      --spark-x: -54px;
+      --spark-y: -68px;
+    }
+
+    .gift-button.opened .spark:nth-child(6) {
+      animation-delay: 130ms;
+      --spark-x: 42px;
+      --spark-y: -76px;
+    }
+
+    .gift-button.opened .spark:nth-child(7) {
+      animation-delay: 170ms;
+      --spark-x: 72px;
+      --spark-y: -34px;
+    }
+
+    .gift-button.opened .spark:nth-child(8) {
+      animation-delay: 210ms;
+      --spark-x: -74px;
+      --spark-y: -28px;
+    }
+
+    .telegram-panel {
+      display: none;
+      gap: 18px;
+      max-width: 48ch;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.13);
+      animation: stepIn 520ms ease both;
+    }
+
+    .telegram-panel.visible {
+      display: grid;
+    }
+
+    .telegram-panel p {
+      margin: 0;
+      color: rgba(255, 248, 242, 0.88);
+      line-height: 1.62;
+    }
+
+    .restart {
+      position: fixed;
+      right: 18px;
+      bottom: var(--safe-bottom);
+      z-index: 4;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      color: rgba(255, 248, 242, 0.84);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 12px 32px rgba(38, 16, 20, 0.22);
+      backdrop-filter: blur(18px);
+      transition: transform 220ms ease, background 220ms ease;
+    }
+
+    .restart:hover,
+    .restart:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    @keyframes stepIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes starsDrift {
+      from {
+        background-position: 0 0, 42px 64px, 90px 28px;
+      }
+
+      to {
+        background-position: 118px 118px, 198px 220px, 300px 238px;
+      }
+    }
+
+    @keyframes floatFirefly {
+      0%,
+      100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(0.7);
+      }
+
+      16%,
+      72% {
+        opacity: 0.86;
+      }
+
+      50% {
+        opacity: 0.44;
+        transform: translate3d(var(--drift-x), var(--drift-y), 0) scale(1);
+      }
+    }
+
+    @keyframes catFloat {
+      0%,
+      100% {
+        margin-top: 0;
+      }
+
+      50% {
+        margin-top: -12px;
+      }
+    }
+
+    @keyframes buttonFloat {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+
+      50% {
+        translate: 0 -5px;
+      }
+    }
+
+    @keyframes buttonOrbit {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+
+      25% {
+        translate: 4px -3px;
+      }
+
+      50% {
+        translate: 0 -5px;
+      }
+
+      75% {
+        translate: -4px -2px;
+      }
+    }
+
+    @keyframes buttonWiggle {
+      0%,
+      100% {
+        rotate: 0deg;
+      }
+
+      40% {
+        rotate: -1.2deg;
+      }
+
+      62% {
+        rotate: 1.2deg;
+      }
+    }
+
+    @keyframes giftGleam {
+      0%,
+      42% {
+        transform: translateX(-110%) skewX(-18deg);
+      }
+
+      70%,
+      100% {
+        transform: translateX(120%) skewX(-18deg);
+      }
+    }
+
+    @keyframes popSpark {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) scale(1);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        align-items: stretch;
+        padding: 84px 14px calc(74px + var(--safe-bottom));
+      }
+
+      .card-shell {
+        display: grid;
+        min-height: calc(100svh - 170px);
+        padding: 22px;
+        border-radius: 8px;
+      }
+
+      .cat {
+        width: 54px;
+        height: 54px;
+        font-size: 2rem;
+        opacity: 0.34;
+      }
+
+      .cat-left {
+        left: -12px;
+        top: 19%;
+      }
+
+      .cat-right {
+        right: -12px;
+        top: 70%;
+      }
+
+      .step.active {
+        gap: 20px;
+      }
+
+      h1 {
+        max-width: 10ch;
+        font-size: 2.68rem;
+      }
+
+      h2 {
+        font-size: 2.12rem;
+      }
+
+      .copy {
+        font-size: 1.02rem;
+        line-height: 1.66;
+      }
+
+      .question {
+        font-size: 1.18rem;
+      }
+
+      .story-cat {
+        width: min(180px, 62vw);
+        max-height: 180px;
+      }
+
+      .story-cat.wide {
+        width: min(240px, 78vw);
+      }
+
+      .exit-line {
+        justify-content: center;
+      }
+
+      .meme-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        min-height: 124px;
+      }
+
+      .button {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 18px;
+      }
+
+      .button.is-floating {
+        width: auto;
+        min-width: min(230px, calc(100vw - 64px));
+      }
+
+      .notice-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .gift-zone {
+        justify-items: center;
+      }
+
+      .gift-2,
+      .gift-3 {
+        margin-left: 0;
+      }
+
+      .telegram-panel {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="theme-1">
+  <div class="fireflies" aria-hidden="true"></div>
+  <div class="side-cats" aria-hidden="true">
+    <span class="cat cat-left">🐈‍⬛</span>
+    <span class="cat cat-right">🐱</span>
+  </div>
+
+  <div class="progress" aria-label="Прогрес">
+    <span class="progress-text" id="progressText">1/5</span>
+    <span class="progress-track" aria-hidden="true">
+      <span class="progress-fill" id="progressFill"></span>
+    </span>
+  </div>
+
+  <main class="page">
+    <section class="card-shell" aria-live="polite">
+      <article class="step active" data-step="1">
+        <p class="eyebrow">Рівень 1</p>
+        <h1>Маленьке знайомство</h1>
+        <img class="story-cat" src="assets/first1_cat.jpg" alt="Котик дуже близько дивиться в камеру" />
+        <div class="copy">
+          <p>Опаа, все таки зайшла))) Вітаю.</p>
+          <p>Цей котик тут не просто так. Він відповідає за перше враження.</p>
+          <p>І не лякайся тут просто моя спроба познайомитись ближче і, можливо, трошки подарувати тобі посмішку.</p>
+        </div>
+        <p class="question">Отож, продовжуємо?))</p>
+        <p class="hint" id="tryHint">Постарайся ще трошки))</p>
+        <div class="actions">
+          <button class="button primary floaty" id="yesIntro" type="button">Пігнали</button>
+          <button class="button ghost escape wiggle" id="noIntro" type="button">Ні</button>
+        </div>
+      </article>
+
+      <article class="step" data-step="2">
+        <p class="eyebrow">Рівень 2</p>
+        <h2>Ну ось</h2>
+        <img class="story-cat wide" src="assets/1_cat.jpg" alt="Лежачий котик" />
+        <div class="copy">
+          <p>Малявка все таки пішла далі, і я радий))</p>
+          <p>Просто скажу так: мені реально приємно з тобою спілкуватись, і хочеться дізнатись про тебе більше. Ти справді для мене цікава.</p>
+        </div>
+        <p class="question">Що ж, продовжуємо?)))</p>
+        <div class="actions">
+          <button class="button primary floaty" data-go-step="3" type="button">Летсгоууу</button>
+        </div>
+        <div class="exit-line">
+          <button class="button ghost exit-button" data-exit type="button">вихід</button>
+        </div>
+        <div class="notice" id="scaredNotice">
+          <p>Та я сам в шоці, я тільки почав, а вже стараюсь виглядати милим.</p>
+          <div class="notice-actions">
+            <button class="button ghost" data-go-step="1" type="button">Назад</button>
+            <button class="button primary floaty" data-go-step="3" type="button">Все ж продовжити</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="step" data-step="3">
+        <p class="eyebrow">Рівень 3</p>
+        <h2>Трошки про мене</h2>
+
+        <img class="story-cat small" src="assets/2_cat.jpg" alt="Котик ховається лапкою" />
+
+        <div class="copy">
+          <p>Ну ось, трошки про мене я взагалі навчаюсь за кордоном)) Працюю, вчуся і потроху розбираюсь із життям.</p>
+          <p>Хоча ти знаєш але люблю, здається, прямо все прогулянки, гори, замки, нові місця, дивні розмови ні про що і про все одразу.</p>
+          <p>Можу зависнути над якоюсь ідеєю, мати різні странні моменти.Але... але...</p>
+        </div>
+
+        <p class="question">Якщо тебе це не страшить, йдемо далі??</p>
+        <div class="actions">
+          <button class="button primary floaty" data-go-step="4" type="button">Я бойова, тому пішли</button>
+          <button class="button ghost wiggle" id="memeButton" type="button">Мені треба секунду</button>
+        </div>
+
+        <div class="notice" id="memeNotice">
+          <p>Секунда видана. Котик теж трошки сховався, але ми тримаємось.</p>
+          <div class="notice-actions">
+            <button class="button primary floaty" data-go-step="4" type="button">Добре добон, йдемо далі</button>
+          </div>
+        </div>
+
+        <div class="exit-line">
+          <button class="button ghost exit-button" data-exit type="button">вихід</button>
+        </div>
+      </article>
+
+      <article class="step" data-step="4">
+        <p class="eyebrow">Рівень 4</p>
+        <h2>А якщо чесно</h2>
+        <img class="story-cat small" src="assets/3_cat.jpg" alt="Котик для чесної розмови" />
+        <div class="copy">
+          <p>Якщо чесно, я просто хочу більше про тебе дізнатись.</p>
+          <p>Що тобі подобається, з чого ти смієшся, які в тебе дивні історії, мрії і маленькі радості.</p>
+          <p>І якщо тебе не пугає, що в майбутньому ми могли б колись зустрітись сходити в бар, театр, погуляти в горах або просто десь посидіти й поговорити тоді можна зробити ще один маленький крок</p>
+        </div>
+        <p class="question">Не пугає?</p>
+        <div class="actions">
+          <button class="button primary floaty" data-go-step="5" type="button">Не пугає</button>
+          <button class="button ghost orbit" id="littleScaredButton" type="button">Трошечки пугає</button>
+        </div>
+        <div class="notice" id="littleScaredNotice">
+          <p>Трошечки це нормально. Я нікуди не поспішаю, просто трохи розмріявся.</p>
+          <div class="notice-actions">
+            <button class="button primary floaty" data-go-step="5" type="button">Добре, веди далі</button>
+          </div>
+        </div>
+        <div class="exit-line">
+          <button class="button ghost exit-button" data-exit type="button">вихід</button>
+        </div>
+      </article>
+
+      <article class="step" data-step="5">
+        <p class="eyebrow">Фінал</p>
+        <h2>Ура, ти дійшла</h2>
+        <img class="story-cat final-cat" src="assets/4_cat.jpg" alt="Смішний котик у кепці" />
+        <div class="copy">
+          <p>Ура, ти дійшла до фіналу.</p>
+          <p>Це маленька перемога, і я тобою пишаюсь. Котик теж))</p>
+          <p>Тут не буде великої драми чи суперсекрету.</p>
+          <p>Просто маленький фінальний крок. Гоуу??</p>
+        </div>
+        <div class="gift-zone">
+          <button class="gift-button gift-1" id="giftButton1" type="button" aria-label="Відкрити перший подарунок">
+            <span class="gift-bow"></span>
+            <span class="gift-lid"></span>
+            <span class="gift-box"></span>
+            <span class="gift-ribbon"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+          </button>
+
+          <button class="gift-button gift-2 hidden-gift" id="giftButton2" type="button" aria-label="Відкрити другий подарунок">
+            <span class="gift-bow"></span>
+            <span class="gift-lid"></span>
+            <span class="gift-box"></span>
+            <span class="gift-ribbon"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+          </button>
+
+          <button class="gift-button gift-3 hidden-gift" id="giftButton3" type="button" aria-label="Відкрити третій подарунок">
+            <span class="gift-bow"></span>
+            <span class="gift-lid"></span>
+            <span class="gift-box"></span>
+            <span class="gift-ribbon"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+          </button>
+
+          <p class="gift-hint" id="giftHint">Відкрий подаруночок</p>
+
+          <div class="telegram-panel" id="telegramPanel">
+            <p>А ось і мій тг.<br />Якщо захочеш напиши мені там^^</p>
+            <a class="button primary floaty" id="telegramLink" href="#" target="_blank" rel="noopener">Написати підозрілому чудіку</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="step" data-step="exit">
+        <p class="eyebrow">Вихід</p>
+        <h2>Окей окей^^</h2>
+
+        <img class="story-cat small" src="assets/4_cat.jpg" alt="Котик для виходу" />
+
+        <div class="copy">
+          <p>Я не ображаюсь. Ну, майже.</p>
+          <p>Можеш закрити сторінку, а якщо раптом стане цікаво котик і я будуть чекати тут...</p>
+        </div>
+        <div class="actions">
+          <button class="button primary floaty" data-go-step="1" type="button">Почнемо знову?...</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <button class="restart" id="restartButton" type="button">спочатку</button>
+
+  <script>
+    // Заміни тільки це значення, якщо захочеш використати інший Telegram.
+    const telegramUsername = "Meandmeitsme";
+
+    const totalSteps = 5;
+    let currentStep = 1;
+    let introYesAttempts = 0;
+    let noIntroAttempts = 0;
+
+    const noPhrases = [
+      "Кнопка втекла. Вона теж не вміє говорити про почуття...",
+      "Ні? А я так старався...",
+      "Добре добре, але кнопка не згодна.",
+      "Це вже не кнопка, це міні-бос.",
+      "Роблю вигляд, що нічого не сталося.))"
+    ];
+
+    const catMoods = {
+      1: ["🐈‍⬛", "🐱"],
+      2: ["🐈‍⬛", "🐱💭"],
+      3: ["😼", "🐱‍👤"],
+      4: ["🐈‍⬛", "🐱☕"],
+      5: ["🐱✨", "😸"]
+    };
+
+    const steps = [...document.querySelectorAll(".step")];
+    const progressText = document.querySelector("#progressText");
+    const progressFill = document.querySelector("#progressFill");
+    const tryHint = document.querySelector("#tryHint");
+    const yesIntro = document.querySelector("#yesIntro");
+    const noIntro = document.querySelector("#noIntro");
+    const scaredNotice = document.querySelector("#scaredNotice");
+    const memeNotice = document.querySelector("#memeNotice");
+    const littleScaredNotice = document.querySelector("#littleScaredNotice");
+    const giftButton1 = document.querySelector("#giftButton1");
+    const giftButton2 = document.querySelector("#giftButton2");
+    const giftButton3 = document.querySelector("#giftButton3");
+    const giftHint = document.querySelector("#giftHint");
+    const telegramPanel = document.querySelector("#telegramPanel");
+    const telegramLink = document.querySelector("#telegramLink");
+    const fireflies = document.querySelector(".fireflies");
+    const catLeft = document.querySelector(".cat-left");
+    const catRight = document.querySelector(".cat-right");
+
+    telegramLink.href = `https://t.me/${telegramUsername}`;
+
+    function createFireflies() {
+      const count = window.matchMedia("(max-width: 640px)").matches ? 16 : 26;
+      fireflies.innerHTML = "";
+
+      for (let index = 0; index < count; index += 1) {
+        const firefly = document.createElement("span");
+        firefly.className = "firefly";
+        firefly.style.setProperty("--left", `${Math.random() * 100}%`);
+        firefly.style.setProperty("--top", `${Math.random() * 100}%`);
+        firefly.style.setProperty("--size", `${Math.random() * 4 + 3}px`);
+        firefly.style.setProperty("--duration", `${Math.random() * 7 + 7}s`);
+        firefly.style.setProperty("--delay", `${Math.random() * -12}s`);
+        firefly.style.setProperty("--drift-x", `${Math.random() * 120 - 60}px`);
+        firefly.style.setProperty("--drift-y", `${Math.random() * 120 - 60}px`);
+        fireflies.appendChild(firefly);
+      }
+    }
+
+    function updateProgress() {
+      progressText.textContent = `${currentStep}/${totalSteps}`;
+      progressFill.style.width = `${(currentStep / totalSteps) * 100}%`;
+    }
+
+    function resetFloatingButton(button) {
+      button.classList.remove("is-floating");
+      button.style.position = "";
+      button.style.left = "";
+      button.style.top = "";
+    }
+
+    function showStep(stepNumber) {
+      currentStep = stepNumber;
+
+      steps.forEach((step) => {
+        step.classList.toggle("active", step.dataset.step === String(currentStep));
+      });
+
+      const numericStep = Number(currentStep);
+
+      document.body.classList.remove("theme-1", "theme-2", "theme-3", "theme-4", "theme-5");
+
+      if (Number.isFinite(numericStep)) {
+        document.body.classList.add(`theme-${numericStep}`);
+        const [leftMood, rightMood] = catMoods[numericStep] || catMoods[1];
+        catLeft.textContent = leftMood;
+        catRight.textContent = rightMood;
+        progressText.textContent = `${numericStep}/${totalSteps}`;
+        progressFill.style.width = `${(numericStep / totalSteps) * 100}%`;
+      } else {
+        document.body.classList.add("theme-1");
+        catLeft.textContent = "🐈‍⬛";
+        catRight.textContent = "🐾";
+        progressText.textContent = "вихід";
+        progressFill.style.width = "100%";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function randomBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function showNoPhrase() {
+      noIntroAttempts += 1;
+      const phrase = noPhrases[Math.min(noIntroAttempts - 1, noPhrases.length - 1)];
+      tryHint.textContent = phrase;
+      tryHint.classList.add("visible");
+    }
+
+    function moveButtonInsideViewport(button, awayFromPoint) {
+      const rect = button.getBoundingClientRect();
+      const padding = 16;
+      const maxLeft = Math.max(padding, window.innerWidth - rect.width - padding);
+      const maxTop = Math.max(padding, window.innerHeight - rect.height - padding);
+      const topPadding = Math.min(84, maxTop);
+      let nextLeft = randomBetween(padding, maxLeft);
+      let nextTop = randomBetween(topPadding, maxTop);
+
+      // Якщо є координати курсора, штовхаємо кнопку у протилежний бік.
+      if (awayFromPoint) {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const directionX = centerX >= awayFromPoint.x ? 1 : -1;
+        const directionY = centerY >= awayFromPoint.y ? 1 : -1;
+
+        nextLeft = Math.min(maxLeft, Math.max(padding, rect.left + directionX * randomBetween(90, 170)));
+        nextTop = Math.min(maxTop, Math.max(topPadding, rect.top + directionY * randomBetween(70, 140)));
+      }
+
+      button.classList.add("is-floating");
+      button.style.position = "fixed";
+      button.style.left = `${nextLeft}px`;
+      button.style.top = `${nextTop}px`;
+    }
+
+    function moveIntroYesOnce() {
+      const rect = yesIntro.getBoundingClientRect();
+      const padding = 16;
+      const maxLeft = Math.max(padding, window.innerWidth - rect.width - padding);
+      const maxTop = Math.max(padding, window.innerHeight - rect.height - padding);
+      const topPadding = Math.min(84, maxTop);
+      const nextLeft = Math.min(maxLeft, Math.max(padding, rect.left + randomBetween(44, 92)));
+      const nextTop = Math.min(maxTop, Math.max(topPadding, rect.top + randomBetween(-54, 44)));
+
+      yesIntro.classList.add("is-floating");
+      yesIntro.style.position = "fixed";
+      yesIntro.style.left = `${nextLeft}px`;
+      yesIntro.style.top = `${nextTop}px`;
+    }
+
+    function resetIntroState() {
+      introYesAttempts = 0;
+      noIntroAttempts = 0;
+      tryHint.textContent = "Постарайся ще трошки))";
+      tryHint.classList.remove("visible");
+      resetFloatingButton(yesIntro);
+      resetFloatingButton(noIntro);
+      scaredNotice.classList.remove("visible");
+      memeNotice.classList.remove("visible");
+      littleScaredNotice.classList.remove("visible");
+      giftButton1.classList.remove("opened");
+      giftButton2.classList.remove("opened", "revealed");
+      giftButton3.classList.remove("opened", "revealed");
+      giftHint.textContent = "Відкрий подаруночок";
+      telegramPanel.classList.remove("visible");
+    }
+
+    yesIntro.addEventListener("click", () => {
+      introYesAttempts += 1;
+
+      if (introYesAttempts === 1) {
+        moveIntroYesOnce();
+        tryHint.textContent = "Постарайся ще трошки))";
+        tryHint.classList.add("visible");
+        return;
+      }
+
+      resetFloatingButton(yesIntro);
+      resetFloatingButton(noIntro);
+      showStep(2);
+    });
+
+    noIntro.addEventListener("pointerenter", (event) => {
+      showNoPhrase();
+      moveButtonInsideViewport(noIntro, { x: event.clientX, y: event.clientY });
+    });
+
+    noIntro.addEventListener("pointermove", (event) => {
+      const rect = noIntro.getBoundingClientRect();
+      const nearX = event.clientX > rect.left - 46 && event.clientX < rect.right + 46;
+      const nearY = event.clientY > rect.top - 46 && event.clientY < rect.bottom + 46;
+
+      if (nearX && nearY) {
+        moveButtonInsideViewport(noIntro, { x: event.clientX, y: event.clientY });
+      }
+    });
+
+    noIntro.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      showNoPhrase();
+      const touch = event.touches[0];
+      moveButtonInsideViewport(noIntro, { x: touch.clientX, y: touch.clientY });
+    }, { passive: false });
+
+    noIntro.addEventListener("click", (event) => {
+      event.preventDefault();
+      showNoPhrase();
+      moveButtonInsideViewport(noIntro, { x: event.clientX, y: event.clientY });
+    });
+
+    document.querySelectorAll("[data-go-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetStep = button.dataset.goStep;
+        if (targetStep === "1") {
+          resetIntroState();
+        }
+        showStep(targetStep);
+      });
+    });
+
+    document.querySelectorAll("[data-exit]").forEach((button) => {
+      button.addEventListener("click", () => {
+        showStep("exit");
+      });
+    });
+
+    document.querySelector("#scaredButton")?.addEventListener("click", () => {
+      scaredNotice.classList.add("visible");
+    });
+
+    document.querySelector("#memeButton").addEventListener("click", () => {
+      document.querySelector("#memeNotice").classList.add("visible");
+    });
+
+    document.querySelector("#littleScaredButton").addEventListener("click", () => {
+      littleScaredNotice.classList.add("visible");
+    });
+
+    giftButton1.addEventListener("click", () => {
+      giftButton1.classList.add("opened");
+      giftButton2.classList.add("revealed");
+      giftHint.textContent = "Ого, там ще один.";
+    });
+
+    giftButton2.addEventListener("click", () => {
+      giftButton2.classList.add("opened");
+      giftButton3.classList.add("revealed");
+      giftHint.textContent = "Так, це подарунок в подарунку.";
+    });
+
+    giftButton3.addEventListener("click", () => {
+      giftButton3.classList.add("opened");
+      giftHint.textContent = "Ну все, тепер точно фінал.";
+      window.setTimeout(() => {
+        telegramPanel.classList.add("visible");
+      }, 360);
+    });
+
+    document.querySelector("#restartButton").addEventListener("click", () => {
+      resetIntroState();
+      showStep(1);
+    });
+
+    window.addEventListener("resize", () => {
+      resetFloatingButton(yesIntro);
+      resetFloatingButton(noIntro);
+    });
+
+    createFireflies();
+    updateProgress();
+  </script>
+</body>
+</html>
